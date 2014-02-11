@@ -1,0 +1,60 @@
+{
+  "name": "Badminton",
+  "description": "Badminton Score",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "Chuck Lee",
+    "url": "https://github.com/chuck-lee"
+  },
+  "orientation": ["landscape-primary"],
+  "locales": {
+    "ar": {
+      "name": "Badminton",
+      "description": "Badminton Score"
+    },
+    "de": {
+      "name": "Badminton",
+      "description": "Badminton Score"
+    },
+    "el": {
+      "name": "Badminton",
+      "description": "Badminton Score"
+    },
+    "en-US": {
+      "name": "Badminton",
+      "description": "Badminton Score"
+    },
+    "es": {
+      "name": "Badminton",
+      "description": "Badminton Score"
+    },
+    "fr": {
+      "name": "Badminton",
+      "description": "Badminton Score"
+    },
+    "it": {
+      "name": "Badminton",
+      "description": "Badminton Score"
+    },
+    "pt-BR": {
+      "name": "Badminton",
+      "description": "Badminton Score"
+    },
+    "ru": {
+      "name": "Badminton",
+      "description": "Badminton Score"
+    },
+    "tr": {
+      "name": "Badminton",
+      "description": "Badminton Score"
+    },
+    "zh-TW": {
+      "name": "Badminton",
+      "description": "Badminton Score"
+    }
+  },
+  "default_locale": "en-US",
+  "icons": {
+    "128": "/style/icons/Blank.png"
+  }
+}

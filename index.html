@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Badminton Score</title>
+
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        overflow: hidden;
+      }
+
+      div {
+        margin: 0px;
+      }
+
+      div.court {
+        width: 90%;
+        height: 45%;
+        border-style:solid;
+        border-width:2px;
+      }
+
+      div.container {
+        width: 30%;
+        height: 100%;
+        display:inline-block;
+      }
+
+      div.score {
+        width: 40%;
+        height: 100%;
+        display:inline-block;
+        text-align: center;
+      }
+
+      div.backcourt {
+        width: 100%;
+        height: 50%;
+        border-style:solid;
+        border-width:1px;
+        text-align: center;
+      }
+
+      input[type="text"]
+      {
+          background: transparent;
+      }
+
+      input.score {
+        height: 95%;
+        font-weight: bold;
+        border-style: none;
+        width: 95%;
+        text-align: center;
+      }
+
+      input.instruction {
+        border-style: none;
+        width: 90%;
+      }
+
+      input.playerName {
+        font-weight: bold;
+        border-style: solid;
+        border-width:2px;
+        width: 95%;
+        text-align: center;
+      }
+    </style>
+
+    <script defer="" src="js/badminton.js"></script>
+  </head>
+
+  <body>
+    <div class="court">
+      <div class="container" style="float:left" id="court_left">
+        <div class="backcourt" id="court_left_left">
+          <input type="text" class="playerName" id="player_left_left">
+        </div>
+        <div class="backcourt" id="court_left_right">
+          <input type="text" class="playerName" id="player_left_right">
+        </div>
+      </div>
+
+      <div class="score">
+        <input type="text" id="score" class="score" readonly>
+      </div>
+
+      <div class="container" style="float:right" id="court_right">
+        <div class="backcourt" id="court_right_right">
+          <input type="text" class="playerName" id="player_right_right">
+        </div>
+        <div class="backcourt" id="court_right_left">
+          <input type="text" class="playerName" id="player_right_left">
+        </div>
+      </div>
+    </div>
+
+    <div id="settings" disabled>
+      Rule:
+      <select id="style">
+        <option value="old">Old</option>
+        <option value="new">New</option>
+      </select>
+      Players:
+      <select id="players">
+        <option value="2">2</option>
+        <option value="1">1</option>
+      </select>
+      Wininng Score:
+      <input type="text" id="winningScore" value="15">
+    </div>
+
+    <input type="text" id="instruction" class="instruction" readonly>
+    <br>
+    <button id="start">Start</button>
+    <button id="reset">Reset</button>
+
+  </body>
+
+</html>
