@@ -40,6 +40,13 @@ var Judge = {
       right: playerInfo.left
     };
   },
+  _getServeInstruction: function() {
+    if (!this.playing) {
+      return null;
+    }
+    return 'Serve ' + this.serveInfo.serveIndex + ': ' +
+           this.serveInfo.currentStanding[this.serveInfo.side][this.serveInfo.position];
+  },
 
   setData: function(players, style, winningScore, playerInfo) {
     this.rule.players = players;
@@ -89,16 +96,32 @@ var Judge = {
       this.scoringAlgo(side);
     }
 
-    var currentPlayerInfo = this.serveInfo.currentStanding;
-    var instruction = 'Side: ' + this.serveInfo.side +
-      ', Position: ' + this.serveInfo.position +
-      ', Player: ' + currentPlayerInfo[this.serveInfo.side][this.serveInfo.position] +
-      ', Serve: ' + this.serveInfo.serveIndex;
-
     this.updateScore(this.scoreInfo,
                      this.serveInfo,
-                     currentPlayerInfo,
-                     instruction);
+                     this.serveInfo.currentStanding,
+                     this._getServeInstruction());
+  },
+  swap: function() {
+    var tmp;
+    tmp = this.scoreInfo.left;
+    this.scoreInfo.left = this.scoreInfo.right;
+    this.scoreInfo.right = tmp;
+
+    tmp = this.playerInfo.left;
+    this.playerInfo.left = this.playerInfo.right;
+    this.playerInfo.right = tmp;
+
+    if (this.playing) {
+      tmp = this.serveInfo.currentStanding.left;
+      this.serveInfo.currentStanding.left = this.serveInfo.currentStanding.right;
+      this.serveInfo.currentStanding.right = tmp;
+      this.serveInfo.side = this._swapLeftRight(this.serveInfo.side);
+    }
+
+    this.updateScore(this.scoreInfo,
+                     this.playing ? this.serveInfo : null,
+                     this.playing ? this.serveInfo.currentStanding : this.playerInfo,
+                     this._getServeInstruction());
   },
 
   scoring_old_2: function (side) {
@@ -168,6 +191,7 @@ var Judge = {
 window.addEventListener('load', function() {
   document.getElementById('start').addEventListener('click', start);
   document.getElementById('reset').addEventListener('click', reset);
+  document.getElementById('swap').addEventListener('click', swap);
   document.getElementById('court_left').addEventListener('click', clickLeft);
   document.getElementById('court_right').addEventListener('click', clickRight);
   document.getElementById('player_left_left').addEventListener('change', dataChange);
@@ -210,6 +234,7 @@ window.addEventListener('load', function() {
 window.addEventListener('unload', function() {
   document.getElementById('start').removeEventListener('click', start);
   document.getElementById('reset').removeEventListener('click', reset);
+  document.getElementById('swap').removeEventListener('click', swap);
   document.getElementById('court_left').removeEventListener('click', clickLeft);
   document.getElementById('court_right').removeEventListener('click', clickRight);
   document.getElementById('player_left_left').removeEventListener('change', dataChange);
@@ -279,4 +304,8 @@ function clickRight() {
 
 function score(side) {
   Judge.score(side);
+}
+
+function swap() {
+  Judge.swap();
 }
