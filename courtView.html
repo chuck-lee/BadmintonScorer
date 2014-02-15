@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Badminton Score (Court View)</title>
+    <link rel="stylesheet" type="text/css" href="style/court.css">
+  </head>
+
+  <body>
+    <div class="court">
+      <div class="container" style="float:left" id="court_right">
+        <div class="backcourt" id="court_right_left">
+          <input type="text" class="playerName" id="player_right_left">
+        </div>
+        <div class="backcourt" id="court_right_right">
+          <input type="text" class="playerName" id="player_right_right">
+        </div>
+      </div>
+
+      <div class="score">
+        <input type="text" id="score_right" class="score" readonly>
+        :
+        <input type="text" id="score_left" class="score" readonly>
+      </div>
+
+      <div class="container" style="float:right" id="court_left">
+        <div class="backcourt" id="court_left_right">
+          <input type="text" class="playerName" id="player_left_right">
+        </div>
+        <div class="backcourt" id="court_left_left">
+          <input type="text" class="playerName" id="player_left_left">
+        </div>
+      </div>
+    </div>
+
+    <br />
+    <input type="text" id="instruction" class="instruction" readonly>
+  </body>
+
+</html>

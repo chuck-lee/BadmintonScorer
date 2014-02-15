@@ -27,6 +27,8 @@ div.score {
   height: 100%;
   display:inline-block;
   text-align: center;
+  font-weight: bold;
+  font-size: xx-large;
 }
 
 div.backcourt {
@@ -44,11 +46,11 @@ input[type="text"]
 
 input.score {
   height: 95%;
+  border-style: none;
+  width: 40%;
+  text-align: center;
   font-weight: bold;
   font-size: xx-large;
-  border-style: none;
-  width: 95%;
-  text-align: center;
 }
 
 input.instruction {

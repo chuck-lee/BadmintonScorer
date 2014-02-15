@@ -192,6 +192,7 @@ window.addEventListener('load', function() {
   document.getElementById('start').addEventListener('click', start);
   document.getElementById('reset').addEventListener('click', reset);
   document.getElementById('swap').addEventListener('click', swap);
+  document.getElementById('courtView').addEventListener('click', courtView);
   document.getElementById('court_left').addEventListener('click', clickLeft);
   document.getElementById('court_right').addEventListener('click', clickRight);
   document.getElementById('player_left_left').addEventListener('change', dataChange);
@@ -201,32 +202,13 @@ window.addEventListener('load', function() {
   document.getElementById('style').addEventListener('change', dataChange);
   document.getElementById('players').addEventListener('change', dataChange);
   document.getElementById('winningScore').addEventListener('change', dataChange);
-
+  
   Judge.updateScore = function(score, serveInfo, playerInfo, instruction) {
-    document.getElementById('score').value = score.left + ':' + score.right;
+    showCourtInfo(window, score, serveInfo, playerInfo, instruction);
+    showInstruction(window, instruction);
 
-    var serveCourt = '';
-    if (serveInfo) {
-      serveCourt = 'court_' + serveInfo.side + '_' + serveInfo.position;
-    }
-    ['left', 'right'].forEach(function (side){
-      ['left', 'right'].forEach(function (position){
-        var positionStr = side + '_' + position;
-
-        var courtId = 'court_' + positionStr;
-        document.getElementById(courtId).style.backgroundColor =
-          courtId == serveCourt ? 'red' : 'white';
-
-        if (playerInfo) {
-          document.getElementById('player_' + positionStr).value =
-            playerInfo[side][position];
-        }
-      });
-    });
-
-    if (instruction) {
-      setInstruction(instruction);
-    }
+    showCourtInfo(courtViewWindow, score, serveInfo, playerInfo, instruction);
+    showInstruction(courtViewWindow, instruction);
   };
   reset();
 });
@@ -235,6 +217,7 @@ window.addEventListener('unload', function() {
   document.getElementById('start').removeEventListener('click', start);
   document.getElementById('reset').removeEventListener('click', reset);
   document.getElementById('swap').removeEventListener('click', swap);
+  document.getElementById('courtView').removeEventListener('click', courtView);
   document.getElementById('court_left').removeEventListener('click', clickLeft);
   document.getElementById('court_right').removeEventListener('click', clickRight);
   document.getElementById('player_left_left').removeEventListener('change', dataChange);
@@ -246,8 +229,42 @@ window.addEventListener('unload', function() {
   document.getElementById('winningScore').removeEventListener('change', dataChange);
 });
 
-function setInstruction(instruction) {
-  document.getElementById('instruction').value = instruction;
+function showCourtInfo(window, score, serveInfo, playerInfo, instruction) {
+  if (!window) {
+    return;
+  }
+  var document = window.document;
+
+  //document.getElementById('score').value = score.left + ':' + score.right;
+  document.getElementById('score_left').value = score.left;
+  document.getElementById('score_right').value = score.right;
+
+  var serveCourt = '';
+  if (serveInfo) {
+    serveCourt = 'court_' + serveInfo.side + '_' + serveInfo.position;
+  }
+  ['left', 'right'].forEach(function (side){
+    ['left', 'right'].forEach(function (position){
+      var positionStr = side + '_' + position;
+
+      var courtId = 'court_' + positionStr;
+      document.getElementById(courtId).style.backgroundColor =
+        courtId == serveCourt ? 'red' : 'white';
+
+      if (playerInfo) {
+        document.getElementById('player_' + positionStr).value =
+          playerInfo[side][position];
+      }
+    });
+  });
+}
+
+function showInstruction(window, instruction) {
+  if (!instruction || !window) {
+    return;
+  }
+
+  window.document.getElementById('instruction').value = instruction;
 }
 
 function setSettingsEnabled(enabled) {
@@ -282,14 +299,16 @@ function dataChange() {
 }
 
 function start() {
-  setInstruction('Tap left/right court to start.');
+  showInstruction(window, 'Tap left/right court to start.');
+  showInstruction(courtViewWindow, 'Waiting for serve decision.');
   dataChange();
   Judge.start();
   setSettingsEnabled(false);
 }
 
 function reset() {
-  setInstruction('Change game settings then press start.');
+  showInstruction(window, 'Change game settings then press start.');
+  showInstruction(courtViewWindow, 'Waiting for game data configuration.');
   Judge.reset();
   setSettingsEnabled(true);
 }
@@ -308,4 +327,12 @@ function score(side) {
 
 function swap() {
   Judge.swap();
+}
+
+var courtViewWindow = null;
+function courtView() {
+  courtViewWindow = window.open('courtView.html', '_blank');
+  courtViewWindow.onbeforeunload = function() {
+    courtViewWindow = null;
+  };
 }
