@@ -21,12 +21,12 @@ var Judge = {
   },
   playerInfo: {
     left: {
-      left: '',
-      right: '',
+      left: 'b',
+      right: 'a',
     },
     right: {
-      left: '',
-      right: ''
+      left: '2',
+      right: '1'
     }
   },
   playing: false,
