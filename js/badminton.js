@@ -202,7 +202,7 @@ window.addEventListener('load', function() {
   document.getElementById('style').addEventListener('change', dataChange);
   document.getElementById('players').addEventListener('change', dataChange);
   document.getElementById('winningScore').addEventListener('change', dataChange);
-  
+
   Judge.updateScore = function(score, serveInfo, playerInfo, instruction) {
     showCourtInfo(window, score, serveInfo, playerInfo, instruction);
     showInstruction(window, instruction);
@@ -271,11 +271,12 @@ function setSettingsEnabled(enabled) {
   document.getElementById('style').disabled =
     document.getElementById('players').disabled =
     document.getElementById('winningScore').disabled =
-    document.getElementById('player_left_left').readOnly =
-    document.getElementById('player_left_right').readOnly =
-    document.getElementById('player_right_left').readOnly =
-    document.getElementById('player_right_right').readOnly =
     !enabled;
+
+    document.getElementById('player_left_left').setAttribute('readonly', !enabled);
+    document.getElementById('player_left_right').setAttribute('readonly', !enabled);
+    document.getElementById('player_right_left').setAttribute('readonly', !enabled);
+    document.getElementById('player_right_right').setAttribute('readonly', !enabled);
 }
 
 function dataChange() {
