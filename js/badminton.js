@@ -273,10 +273,17 @@ function setSettingsEnabled(enabled) {
     document.getElementById('winningScore').disabled =
     !enabled;
 
-    document.getElementById('player_left_left').setAttribute('readonly', !enabled);
-    document.getElementById('player_left_right').setAttribute('readonly', !enabled);
-    document.getElementById('player_right_left').setAttribute('readonly', !enabled);
-    document.getElementById('player_right_right').setAttribute('readonly', !enabled);
+    if (enabled) {
+      document.getElementById('player_left_left').removeAttribute('readonly');
+      document.getElementById('player_left_right').removeAttribute('readonly');
+      document.getElementById('player_right_left').removeAttribute('readonly');
+      document.getElementById('player_right_right').removeAttribute('readonly');
+    } else {
+      document.getElementById('player_left_left').setAttribute('readonly', "readonly");
+      document.getElementById('player_left_right').setAttribute('readonly', "readonly");
+      document.getElementById('player_right_left').setAttribute('readonly', "readonly");
+      document.getElementById('player_right_right').setAttribute('readonly', "readonly");
+    }
 }
 
 function dataChange() {
